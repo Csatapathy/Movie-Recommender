@@ -39,10 +39,12 @@ I will use IMDB's weighted rating formula to construct my chart. Mathematically,
 ![image](https://user-images.githubusercontent.com/68659873/99789721-09aef500-2b49-11eb-859d-04e8fc4ed549.png)
 
 where,
+
     * v is the number of votes for the movie
     * m is the minimum votes required to be listed in the chart
     * R is the average rating of the movie
     * C is the mean vote across the whole report
+    
 we would be getting the result like this:
 
 ![image](https://user-images.githubusercontent.com/68659873/99789989-75915d80-2b49-11eb-88c0-a45ad86bc187.png)
@@ -56,7 +58,7 @@ We will be calculating the similarity using the TF-IDF vectorization and cosine 
 
 We are now in a good position to define our recommendation function. These are the following steps we'll follow :-
 * Get the index of the movie given its title.
-* Get the list of cosine similarity scores for that particular movie with all movies. Convert it into * a list of tuples where the first element is its position and the second is the similarity score.
+* Get the list of cosine similarity scores for that particular movie with all movies. Convert it into  a list of tuples where the first element is its position and the second is the similarity score.
 * Sort the aforementioned list of tuples based on the similarity scores; that is, the second element.
 * Get the top n elements of this list. Ignore the first element as it refers to self (the movie most similar to a particular movie is the movie itself).
 * Return the titles corresponding to the indices of the top elements.
@@ -71,7 +73,7 @@ It goes without saying that the quality of our recommender would be increased wi
 
 We would be doing the same process as done in content based filtering but one import difference is that we would be using CountVectorizer() instead of TF-IDF. This is because we do not want to down-weight the presence of an actor/director if he or she has acted or directed in relatively more movies. It doesn't make much intuitive sense.
 
-This is how the result looks likefor <b>"The Dark Knight Rises"</b>:
+This is how the result looks like for <b>"The Dark Knight Rises"</b>:
 
 ![image](https://user-images.githubusercontent.com/68659873/99790593-5e06a480-2b4a-11eb-8da9-c15a0d48378e.png)
 
@@ -81,6 +83,7 @@ Our other algorithms don't capture the personal tastes and biases of a user. Any
 Therefore, in this section, we will use a technique called Collaborative Filtering to make recommendations to Movie Watchers. It is basically of two types:-
 
 1.<ins><b>User based filtering</ins></b>- These systems recommend products to a user that similar users have liked. For measuring the similarity between two users we can either use pearson correlation or cosine similarity. 
+
 2.<ins><b>Item Based Collaborative Filtering</ins></b>- Instead of measuring the similarity between users, the item-based CF recommends items based on their similarity with the items that the target user rated. Likewise, the similarity can be computed with Pearson Correlation or Cosine Similarity. The major difference is that, with item-based collaborative filtering, we fill in the blank vertically, as oppose to the horizontal manner that user-based CF does. 
 
 However, several problems remain for this method. First, the main issue is scalability. The computation grows with both the customer and the product. The worst case complexity is O(mn) with m users and n items. In addition, sparsity is another concern.
